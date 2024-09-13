@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>2-7 연습문제 : 자바 제어문 사용 - 메뉴 검색 결과</title>
+<title>2-7 연습문제 : 자바 제어문 사용 - 메뉴 검색 모범답안</title>
 
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
@@ -54,33 +54,20 @@
 			String filter = request.getParameter("starPointFilter");
 			boolean exclude = filter != null; // checkbox가 체크되어있음
 			
-			// out.print(search);
-			// out.print(pointLimit);
+			for (Map<String, Object> item : list) {
+				if (keyword.equals(item.get("menu"))) {
+					// skip 조건 : 체크가 되어있고, 4.0 이하인 조건
+					if (exclude && (double)item.get("point") <= 4.0) {
+						continue;
+					}
 			
-			Iterator<Map<String, Object>> iter = list.iterator();
-			while (iter.hasNext()) {
-				Map<String, Object> item = iter.next();
-				// out.print(store);
-				
-				// key의 값 추출
-				Object name = item.get("name");
-				Object menu = item.get("menu");
-				Object point = item.get("point");
-				
-				if (menu.equals(keyword) && filter != "ture") {
-					if (keyword.equals(item.get("menu"))) {
-						// skip 조건 : 체크가 되어있고, 4.0 이하인 조건
-						if (exclude && (double)item.get("point") <= 4.0) {
-							continue;
-						}
 			%>
 				<tr>
-					<td><%= menu %></td>
-					<td><%= name %></td>
-					<td><%= point %></td>
+					<td><%= filter %>:::::<%= item.get("menu") %></td>
+					<td><%= item.get("name") %></td>
+					<td><%= item.get("point") %></td>
 				</tr>
 			<%
-					}
 				}
 			}
 			%>
