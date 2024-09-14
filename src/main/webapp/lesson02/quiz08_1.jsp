@@ -64,10 +64,10 @@ list.add(map);
 
 <% 
 // request는 CharacterEncodingFilter에서 정의해서 사용 가능
-String id = request.getParameter("id");
+int id = Integer.valueOf(request.getParameter("id"));
 Map<String, Object> target = null;
 for (Map<String, Object> book : list) {
-	if (book.get("id").equals(id)) {
+	if ((int) book.get("id") == id) {
 		target = book;
 		break;
 	}
@@ -77,8 +77,14 @@ out.print(target);
 	
 <div class="container">
 	<div class="d-flex">
-		<div></div>
-		<div></div>
+		<div><img src="<%= target.get("image")%>" width="350" alt="<%= target.get("id") %>"></div>
+		<div> 
+			<div class="display-3 font-weight-bold"><%= target.get("title") %></div>
+			<div class="display-3 text-info"><%= target.get("author") %></div>
+			<div class="display-3 text-muted"><%= target.get("publisher") %></div>
+		</div>
+			
+			
 	</div>
 
 
