@@ -72,19 +72,24 @@ for (Map<String, Object> book : list) {
 		break;
 	}
 }
-out.print(target);
+// out.print(target); // map 내용 확인용
 %>
 	
 <div class="container">
-	<div class="d-flex">
-		<div><img src="<%= target.get("image")%>" width="350" alt="<%= target.get("id") %>"></div>
+	<div class="d-flex mt-3">
+		<div>
+			<img src="<%= target.get("image")%>" alt="책 표지" width="350">
+		</div>
 		<div> 
-			<div class="display-3 font-weight-bold"><%= target.get("title") %></div>
-			<div class="display-3 text-info"><%= target.get("author") %></div>
-			<div class="display-3 text-muted"><%= target.get("publisher") %></div>
+			<div class="display-1 font-weight-bold"><%= target.get("title") %></div>
+			<!-- span 태그 후 d-block을 추가하기 보다는 div 태그로 하는게 편함 -->
+			<!-- <div class="display-3 text-info"></div> -->
+			<span class="display-3 text-info d-block"><%= target.get("author") %></span>
+			<span class="display-3 text-secondary d-block"><%= target.get("publisher") %></span>
 		</div>
 			
 			
+
 	</div>
 
 
