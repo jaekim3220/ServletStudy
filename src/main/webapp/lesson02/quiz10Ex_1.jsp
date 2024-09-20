@@ -21,6 +21,7 @@ nav {height:40px;}
 
 </head>
 
+<body>
 <%
 // 아티스트 정보 
 
@@ -102,83 +103,101 @@ nav {height:40px;}
 %>
 
 
-<body>
+<%
+Map<String, Object> target = null; // 상세 정보를 보여줄 맵
 
-	<div id="wrap" class="container">
+// 1. 제목을 클릭하고 들어오는 경우(a 태그) - id 파라미터
+if(request.getParameter("id") != null) {
+	int id = Integer.valueOf(request.getParameter("id"));
 	
-		<header class=" d-flex align-items-center">
-			
-			<!-- 로고 영역 -->
+	for (Map<String, Object> music : musicList) {
+		if (id == (int) music.get("id")) { // object를 int로 비교하기 위해 downcasting
+			target = music;
+		break;
+		}
+	}
+}
+
+// 2. 상단 헤더에서 검색한 경우(form 태그) - title 파라미터
+if (request.getParameter("title") != null) {
+	String title = request.getParameter("title");
+	
+	for (Map<String, Object> music : musicList) {
+		if (title.equals(music.get("title"))) { // object를 int로 비교하기 위해 downcasting
+			target = music;
+		break;
+		}
+	}
+}
+
+//out.print(target);
+%>
+		
+		
+	<div class="container">
+		<header class="d-flex align-items-center">
+			<%-- 로고 영역 --%>
 			<div class="col-2">
-				<h3><a href="/lesson02/quiz10.jsp" class="text-success">Melong</a> </h3>
+				<h3><a href="/lesson02/quiz10.jsp" class="text-success">Melong</a></h3>
 			</div>
 			
 			<%-- 검색 영역 --%>
 			<div class="col-10">
-				<div class="input-group col-5">
-				  <input type="text" class="form-control">
-				  <div class="input-group-append">
-				    <button class="btn btn-info" type="submit">검색</button>
-				  </div>
-				</div>
+				<form method="get" action="/lesson02/quiz10Ex_1.jsp">
+					<div class="input-group">	
+						<input type="text" name="title" class="form-control col-5">
+						<div class="input-group-append">
+							<button class="btn btn-info" type="submit">검색</button>
+						</div>
+					</div>
+				</form>
 			</div>
-
 		</header>
-		
-		
-		<nav class=" d-flex">
+		<nav>
 		<!-- 
 		메뉴 3종 세트 : ul, li, a 태그 
 		메뉴 클래스 3종 세트 : nav, nav-item, nav-link (가로메뉴) 
 		-->
-			<ul class="nav nav-fill">
-				<li class="nav-item"><a href="#" class="nav-link font-weight-bold text-dark">멜롱차트</a></li>
-				<li class="nav-item"><a href="#" class="nav-link font-weight-bold text-dark">최신음악</a></li>
-				<li class="nav-item"><a href="#" class="nav-link font-weight-bold text-dark">장르음악</a></li>
-				<li class="nav-item"><a href="#" class="nav-link font-weight-bold text-dark">멜롱DJ</a></li>
-				<li class="nav-item"><a href="#" class="nav-link font-weight-bold text-dark">뮤직어워드</a></li>
+			<ul class="nav">
+				<li class="nav-item"><a href="#" class="nav-link text-dark font-weight-bold">멜롱차트</a></li>
+				<li class="nav-item"><a href="#" class="nav-link text-dark font-weight-bold">최신음악</a></li>
+				<li class="nav-item"><a href="#" class="nav-link text-dark font-weight-bold">장르음악</a></li>
+				<li class="nav-item"><a href="#" class="nav-link text-dark font-weight-bold">멜롱DJ</a></li>
+				<li class="nav-item"><a href="#" class="nav-link text-dark font-weight-bold">뮤직어워드</a></li>
 			</ul>
-
 		</nav>
 		
 
-		<%
-		int id = Integer.valueOf(request.getParameter("id"));
-		Map<String, Object> target = null; // 상세 정보를 보여줄 맵
-		
-		for (Map<String, Object> music : musicList) {
-			if (id == (int) music.get("id")) { // object를 int로 비교하기 위해 downcasting
-				target = music;
-			break;
-			}
-		}
-		out.print(target);
-		%>
-
 		<section class="contents">
+				
+		<%
+			if (target != null) {
+		%>
 		
 			<%-- 곡 정보 --%>
 			<div class="d-flex border border-success p-3">
 				<%-- 이미지 --%>
-				<div>
+				<div class="m-3">
 					<img src="<%= target.get("thumbnail") %>" alt="앨범 이미지" width="150">
 				</div>
-					
+
 					<%-- 곡 정보 --%>
 				<div class="m-3">
 					<div class="display-4 "><%= target.get("title") %></div>
 					<div class="font-weight-bold text-success"><%= target.get("singer") %></div>
-					<div class="d-flex">
+					<div class="d-flex mt-3">
+					
 						<div>
 							<div>앨범</div>
 							<div>재생시간</div>
 							<div>작곡가</div>
 							<div>작사가</div>
 						</div>
-						<div>
+						
+						<div class="ml-3">
 							<div><%= target.get("album") %></div>
-							<div><%= target.get("album") %></div>
-							<div><%= target.get("composer") %></div>
+							<div><%= (int)target.get("time") / 60  %> : <%= (int)target.get("time") % 60 %></div>
+							<div><%= target.get("composer")%></div>
 							<div><%= target.get("lyricist") %></div>
 						</div>
 					</div>
@@ -187,9 +206,18 @@ nav {height:40px;}
 			
 			
 			<%-- 가사 --%>
-			<h3 class="mt-3">가사</h3>
-			<hr>
-			가사정보없음
+			<div class="lyrics pt-3">
+				<h4>가사</h4>
+				<hr>
+				가사 정보 없음
+			</div>
+			
+		<%
+			} else {
+				out.print("정보 없음");
+			}
+		%>
+		
 		</section>
 		
 		

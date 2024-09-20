@@ -116,13 +116,21 @@ footer nav {height:200px;}
 			
 			<%-- 검색 영역 --%>
 			<div class="col-10">
-				<div class="input-group col-5">
-				  <input type="text" class="form-control">
-				  
-				  <div class="input-group-append">
-				    <button class="btn btn-info" type="submit">검색</button>
-				  </div>
-				</div>
+			
+			<%-- Get 방식2 --%>
+			<%--
+			form 3종 세트 : form 태그, name 속성, submit 타입
+			여기서 name이 parameter를 결정.
+			 --%>
+				<form method="get" action="/lesson02/quiz10Ex_1.jsp">
+					<div class="input-group col-5">
+					  <input type="text" name="title" class="form-control">
+					  <div class="input-group-append">
+					    <button class="btn btn-info" type="submit">검색</button>
+					  </div>
+					</div>
+				</form>
+				
 			</div>
 
 		</header>
@@ -180,8 +188,8 @@ footer nav {height:200px;}
 				%>
 					<tr>
 						<td><%= music.get("id") %></td>
-						<%-- Get 방식 --%>
-						<td><a href="/lesson02/quiz10_1Ex.jsp?id=<%= music.get("id") %>" target="_blank"><%= music.get("title") %></a></td>
+						<%-- Get 방식1 --%>
+						<td><a href="/lesson02/quiz10Ex_1.jsp?id=<%= music.get("id") %>" target="_blank"><%= music.get("title") %></a></td>
 						<td><%= music.get("album") %></td>
 					</tr>
 				<%	
