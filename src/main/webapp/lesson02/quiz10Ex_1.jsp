@@ -118,6 +118,8 @@ if(request.getParameter("id") != null) {
 	}
 }
 
+// else if가 아닌 서로 다른 if 문을 사용해 2가지 경우의 수를 받는다
+
 // 2. 상단 헤더에서 검색한 경우(form 태그) - title 파라미터
 if (request.getParameter("title") != null) {
 	String title = request.getParameter("title");
@@ -135,10 +137,15 @@ if (request.getParameter("title") != null) {
 		
 		
 	<div class="container">
+
 		<header class="d-flex align-items-center">
+
 			<%-- 로고 영역 --%>
 			<div class="col-2">
-				<h3><a href="/lesson02/quiz10.jsp" class="text-success">Melong</a></h3>
+				<h3>
+					<%-- 로고를 클릭하면 main 페이지로 return --%>
+					<a href="/lesson02/quiz10Ex.jsp" class="text-success">Melong</a>
+				</h3>
 			</div>
 			
 			<%-- 검색 영역 --%>
@@ -152,11 +159,14 @@ if (request.getParameter("title") != null) {
 					</div>
 				</form>
 			</div>
+
 		</header>
+
+
 		<nav>
 		<!-- 
 		메뉴 3종 세트 : ul, li, a 태그 
-		메뉴 클래스 3종 세트 : nav, nav-item, nav-link (가로메뉴) 
+		메뉴 클래스 4종 세트 : nav, nav-fill nav-item, nav-link (가로메뉴) 
 		-->
 			<ul class="nav">
 				<li class="nav-item"><a href="#" class="nav-link text-dark font-weight-bold">멜롱차트</a></li>
@@ -171,22 +181,21 @@ if (request.getParameter("title") != null) {
 		<section class="contents">
 				
 		<%
-			if (target != null) {
+			if (target != null) { //-- if문 시작 (검색어가 있는 경우)
 		%>
 		
-			<%-- 곡 정보 --%>
 			<div class="d-flex border border-success p-3">
 				<%-- 이미지 --%>
 				<div class="m-3">
 					<img src="<%= target.get("thumbnail") %>" alt="앨범 이미지" width="150">
 				</div>
 
-					<%-- 곡 정보 --%>
+                <%-- 곡 정보 --%>
 				<div class="m-3">
 					<div class="display-4 "><%= target.get("title") %></div>
 					<div class="font-weight-bold text-success"><%= target.get("singer") %></div>
+
 					<div class="d-flex mt-3">
-					
 						<div>
 							<div>앨범</div>
 							<div>재생시간</div>
@@ -201,7 +210,9 @@ if (request.getParameter("title") != null) {
 							<div><%= target.get("lyricist") %></div>
 						</div>
 					</div>
+
 				</div>
+                
 			</div>
 			
 			
@@ -212,11 +223,15 @@ if (request.getParameter("title") != null) {
 				가사 정보 없음
 			</div>
 			
-		<%
-			} else {
-				out.print("정보 없음");
-			}
-		%>
+		<%  
+        } else {  //-- if문 종료, else문 시작 : target이 없는 경우
+        %>
+    		<section>
+    			<h1>정보 없음</h1>
+    		</section>
+    	<%
+		}
+        %>
 		
 		</section>
 		

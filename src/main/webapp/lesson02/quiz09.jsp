@@ -72,7 +72,7 @@ footer nav {height:50px;}
 		<nav class="bg-danger d-flex align-items-center">
 		<!-- 
 		메뉴 3종 세트 : ul, li, a 태그 
-		메뉴 클래스 3종 세트 : nav, nav-item, nav-link (가로메뉴) 
+		메뉴 클래스 4종 세트 : nav, nav-fill nav-item, nav-link (가로메뉴) 
 		-->
 			<ul class="nav nav-fill w-100">
 				<li class="nav-item"><a href="/lesson02/quiz09.jsp" class="nav-link text-white">전체</a></li>
@@ -96,7 +96,11 @@ footer nav {height:50px;}
 				
 				<tbody>
 				<%
-				
+				/*
+				전체 Map 데이터가 출력되도록 설계 후 조건에 맞는 데이터만 추출되도록 설계하는게 편함
+				1. 전체 데이터 출력
+				2. a태그로 설정한 parameter와 일치하는 category 데이터만 추출
+				*/
 				String category = request.getParameter("category");
 				
 				for (Map<String, String> item : list) {
