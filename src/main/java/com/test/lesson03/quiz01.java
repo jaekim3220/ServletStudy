@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.test.common.MysqlService;
 
 @WebServlet("/lesson03/quiz01")
-public class quiz01 extends HttpServlet {
+public class Quiz01 extends HttpServlet {
 
 	@Override
 	public void doGet(HttpServletRequest request,

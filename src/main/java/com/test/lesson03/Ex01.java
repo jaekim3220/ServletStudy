@@ -15,6 +15,10 @@ import com.test.common.MysqlService;
 @WebServlet("/lesson03/ex01")
 public class Ex01 extends HttpServlet {
 	
+	/*
+	3-1 : DB 연결 코드 추가 및 쿼리 테스트
+	*/
+	
 	@Override
 	public void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
