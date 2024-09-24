@@ -22,21 +22,21 @@ insert 후 위에서 만든 목록 출력 페이지로 리다이렉트 하세요
 	
 	<!-- form 3종 세트 : form 태그, name 속성, submit 타입 -->
 	<!-- method를 사용해 Get/Post를 설정-->
-	<form method="Post" action="/lesson03/insert_quiz02" class="container">
+	<form method="post" action="/lesson03/insert_quiz02" class="container">
 	
 		<h1 class="mt-3">즐겨찾기 추가</h1>
 		
 		<div>
 			<label>
 			사이트명 : <br>
-			<input type="text" name="name">
+			<input type="text" name="name" class="form-control">
 			</label>
 		</div>
 
 		<div>
 			<label>
 			사이트 주소 : <br>
-			<input type="text" name="url">
+			<input type="text" name="url" class="form-control">
 			</label>
 		</div>
 		
@@ -45,7 +45,6 @@ insert 후 위에서 만든 목록 출력 페이지로 리다이렉트 하세요
 		</div>
 		
 	</form>
-
 
 
 </body>

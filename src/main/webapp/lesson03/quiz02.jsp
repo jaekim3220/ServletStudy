@@ -40,17 +40,20 @@ url 내용을 a 태그를 이용해서 연결이 되도록 하세요.
 MysqlService ms = MysqlService.getInstance();
 ms.connect(); // !!!!! 꼭 불러야함. 실질적인 DB 연동
 
+// select 쿼리
 String selectQuery = "select * from `bookmark` order by `id` desc";
-ResultSet result = ms.select(selectQuery);
+ResultSet result = ms.select(selectQuery); // mysql에 요청
 %>
 
-	<div id="wrap" class="continer">
+	<div class="continer">
+		<h1 class="text-center mt-3">즐겨찾기 목록</h1>
 		
 		<table class="table text-center">
 			<thead>
 				<tr>
 					<th class="font-weight-bold">사이트</th>
 					<th class="font-weight-bold">사이트 주소</th>
+					<th class="font-weight-bold">삭제</th>
 				</tr>
 			</thead>
 			
@@ -60,7 +63,8 @@ ResultSet result = ms.select(selectQuery);
 			%>
 				<tr>
 					<td><%= result.getString("name") %></td>
-					<td><a href="/lesson03/insert_quiz02?url=<%= result.getString("url") %>"><%= result.getString("url") %></a></td>
+					<td><a href="<%= result.getString("url") %>"><%= result.getString("url") %></a></td>
+					<td><a href="/lesson03/delete_quiz02?id=<%= result.getInt("id")%>" class="btn btn-danger">삭제</a></td>
 				</tr>
 			<%
 			}

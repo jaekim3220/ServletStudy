@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.test.common.MysqlService;
 
-@WebServlet("/lesson03/insert_quiz02")
-public class InsertQuiz02 extends HttpServlet {
+@WebServlet("/lesson03/delete_quiz02")
+public class DeleteQuiz02 extends HttpServlet {
 
 	@Override
-	public void doPost(HttpServletRequest request,
+	public void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		
 		
@@ -22,8 +22,7 @@ public class InsertQuiz02 extends HttpServlet {
 		
 		
 		// request parameter 추출 (디버깅 후 진행)
-		String name = request.getParameter("name");
-		String url = request.getParameter("url");
+		int id = Integer.valueOf(request.getParameter("id"));
 		
 		
 		// DB 연동 (parameter 확인 후 진행)
@@ -31,13 +30,10 @@ public class InsertQuiz02 extends HttpServlet {
 		ms.connect(); // !!!!! 꼭 불러야함. 실질적인 DB 연동
 		
 		
-		// 쿼리 수행(Insert문)
-		String insertQuery = "insert into `bookmark`"
-				+ "(`name`, `url`)"
-				+ "values"
-				+ "('" + name + "', '" + url + "')";
+		// 쿼리 수행(Delete문)
+		String deleteQuery = "delete from `bookmark` where `id` = " + id;
 		try {
-			ms.update(insertQuery);
+			ms.update(deleteQuery);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

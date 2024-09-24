@@ -16,7 +16,7 @@ MysqlService ms = MysqlService.getInstance();
 ms.connect(); // !!!!! 꼭 불러야함. 실질적인 DB 연동
 
 String selectQuery = "select  * from `new_user`";
-ResultSet result = ms.select(selectQuery);
+ResultSet result = ms.select(selectQuery); // mysql에 요청
 %>
 
 	<h1>사용자 목록</h1>
