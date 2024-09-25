@@ -33,9 +33,9 @@ public class InsertQuiz02 extends HttpServlet {
 		
 		// 쿼리 수행(Insert문)
 		String insertQuery = "insert into `bookmark`"
-				+ "(`name`, `url`)"
+				+ "(`name`, `url`, `createdAt`, `updatedAt`)"
 				+ "values"
-				+ "('" + name + "', '" + url + "')";
+				+ "('" + name + "', '" + url + "', now(), now())";
 		try {
 			ms.update(insertQuery);
 		} catch (SQLException e) {
